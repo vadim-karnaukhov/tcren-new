@@ -1,8 +1,10 @@
-library.path <- .libPaths()
+#library.path <- .libPaths()
+library.path <- c("/home/vk/.lib/R/library", "/usr/local/lib/R/site-library", "/usr/lib/R/site-library", "/usr/lib/R/library")
 library("data.table", lib.loc = library.path)
-library("dplyr", lib.loc = library.path)
-library("tidyr", lib.loc = library.path)
-library("ggplot2", lib.loc = library.path)
+#library("dplyr", lib.loc = library.path)
+#library("tidyr", lib.loc = library.path)
+#library("ggplot2", lib.loc = library.path)
+library("tidyverse", lib.loc = library.path)
 library("magrittr", lib.loc = library.path)
 library("optparse", lib.loc = library.path)
 library("stringr", lib.loc = library.path)
@@ -14,9 +16,9 @@ option_list = list(
   make_option(c("-c", "--candidates"), type="character", default="candidate_epitopes.tsv", 
               help="name of file with candidate epitopes [default= %default]", 
               metavar="character"),
-  make_option(c("-t", "--tcren_files"), type="character", default="TCRen_files", 
-              help="name of directory with TCRen.csv and mir-1.0-SNAPSHOT.jar files [default= %default]",
-              metavar="character"),
+#  make_option(c("-t", "--tcren_files"), type="character", default="TCRen_files", 
+#              help="name of directory with TCRen.csv and mir-1.0-SNAPSHOT.jar files [default= %default]",
+#              metavar="character"),
   make_option(c("-o", "--out"), type="character", default="output_TCRen", 
               help="name of directory with TCRen output [default= %default]",
               metavar="character"),
