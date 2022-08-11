@@ -1,9 +1,6 @@
-#library.path <- .libPaths()
-library.path <- c("/home/vk/.lib/R/library", "/usr/local/lib/R/site-library", "/usr/lib/R/site-library", "/usr/lib/R/library")
+library.path <- .libPaths()
+#library.path <- c("/home/vk/.lib/R/library", "/usr/local/lib/R/site-library", "/usr/lib/R/site-library", "/usr/lib/R/library")
 library("data.table", lib.loc = library.path)
-#library("dplyr", lib.loc = library.path)
-#library("tidyr", lib.loc = library.path)
-#library("ggplot2", lib.loc = library.path)
 library("tidyverse", lib.loc = library.path)
 library("magrittr", lib.loc = library.path)
 library("optparse", lib.loc = library.path)
@@ -16,9 +13,6 @@ option_list = list(
   make_option(c("-c", "--candidates"), type="character", default="candidate_epitopes.tsv", 
               help="name of file with candidate epitopes [default= %default]", 
               metavar="character"),
-#  make_option(c("-t", "--tcren_files"), type="character", default="TCRen_files", 
-#              help="name of directory with TCRen.csv and mir-1.0-SNAPSHOT.jar files [default= %default]",
-#              metavar="character"),
   make_option(c("-o", "--out"), type="character", default="output_TCRen", 
               help="name of directory with TCRen output [default= %default]",
               metavar="character"),
@@ -29,8 +23,6 @@ option_list = list(
  
 opt_parser = OptionParser(option_list=option_list);
 opt = parse_args(opt_parser);
-
-#setwd(file.path(opt$tcren_files))
 
 MEMORY <- opt$memory
 
@@ -119,8 +111,10 @@ potential <- fread(file.path(opt$tcren_files, "TCRen.csv")) %>%
 energy.mut.pep <- contacts.mut.pep %>% 
   merge(potential) %>% 
   group_by(pdb.id, peptide, potential) %>% 
-  summarise(value.s = sum(value)) %>% 
-  arrange(pdb.id, value.s)
+  summarise(score = sum(value)) %>% 
+  arrange(pdb.id, score) %>%
+  select(complex.id = pdb.id, peptide, potential, score)
+
 
 fwrite(energy.mut.pep,
-       file.path(opt$out, "candidate_epitopes_ranked_TCRen.csv"))
+       file.path(opt$out, "candidate_epitopes_TCRen.csv"))

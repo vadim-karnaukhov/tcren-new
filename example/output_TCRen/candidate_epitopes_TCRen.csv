@@ -1,4 +1,4 @@
-pdb.id,peptide,potential,value.s
+pdb.id,peptide,potential,score
 6uk4_TCRpMHCmodels_polyV.pdb,KQWLVWLFL,TCRen,-2.09400543293221
 6uk4_TCRpMHCmodels_polyV.pdb,LLSATIFLV,TCRen,0.360438185776583
 6uk4_TCRpMHCmodels_polyV.pdb,WLLLGPMVV,TCRen,0.819017773969505
